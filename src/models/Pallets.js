@@ -1,6 +1,24 @@
 import { types, getSnapshot } from 'mobx-state-tree';
 import Field from './Field';
 
+const groupItems = items => {
+  const grouped = [[[]]];
+
+  items.forEach(item => {
+    const itemValues = Object.values(item);
+    const groupedValues = Object.values(grouped[grouped.length - 1][0]);
+    if (String(itemValues) === String(groupedValues)) {
+      grouped[grouped.length - 1].push(item);
+    } else {
+      grouped.push([item]);
+    }
+  });
+
+  grouped.shift();
+
+  return grouped;
+};
+
 const Pallets = types
   .model({
     pallets: types.array(Field),
@@ -9,18 +27,21 @@ const Pallets = types
   .actions(self => ({
     sendToApi: () => {
       if (self.emptyCount === 0) {
-        console.table(getSnapshot(self.palletsView));
+        console.table(getSnapshot(self.pallets));
       }
     },
   }))
   .views(self => ({
     get sectionsView() {
       const sections = Object.keys(self.pallets[0]);
-      // sections.push('count');
+      sections.push('count');
       return sections;
     },
+    get errorsView() {
+      return groupItems(self.errors);
+    },
     get palletsView() {
-      return self.pallets;
+      return groupItems(self.pallets);
     },
     get emptyCount() {
       let emptyCount = 0;
@@ -34,7 +55,7 @@ const Pallets = types
       return emptyCount;
     },
     errorMessage(id, key) {
-      return self.errors[id][key];
+      return self.errorsView[id][0][key];
     },
   }));
 

@@ -17,10 +17,10 @@ const Table = ({ data }) => (
           </thead>
 
           <tbody>
-            {data.pallets.map((pallet, idx) => (
+            {data.palletsView.map((pallet, idx) => (
               <TableRow
-                pallet={pallet}
                 key={idx}
+                pallet={pallet}
                 errorMessage={key => data.errorMessage(idx, key)}
               />
             ))}
