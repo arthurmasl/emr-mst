@@ -20,10 +20,4 @@ const errors = [
   { title: 'Bottles', dim: '48x40', weight: 'Pallet weight required' },
 ];
 
-// const pallets = [{ title: null, dim: '40x40', weight: 1000, customField: 200 }];
-
-// const errors = [
-//   { title: 'Cargo title required', dim: '40x40', weight: 1000, customField: 200 },
-// ];
-
 export { pallets, errors };

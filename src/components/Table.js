@@ -22,11 +22,15 @@ const Table = ({ data }) => (
                 key={idx}
                 pallet={pallet}
                 errorMessage={key => data.errorMessage(idx, key)}
+                isJoined={data.isJoined}
               />
             ))}
           </tbody>
         </table>
 
+        <button className="btn btn-success" onClick={data.changeJoined}>
+          {data.isJoined ? 'EXPAND' : 'JOIN'}
+        </button>
         <button
           className="btn btn-primary"
           disabled={data.emptyCount > 0}

@@ -7,7 +7,7 @@ import Pallets from './Pallets';
 
 const Store = types
   .model({
-    data: types.optional(Pallets, {}),
+    data: Pallets,
   })
   .actions(self => ({
     load: () => {

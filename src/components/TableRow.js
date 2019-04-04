@@ -1,8 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-const TableRow = ({ pallet, errorMessage }) => {
-  const fields = [...Object.entries(pallet[0]), ['count', pallet.length]];
+const TableRow = ({ pallet, errorMessage, isJoined }) => {
+  const fields = isJoined
+    ? [...Object.entries(pallet[0]), ['count', pallet.length]]
+    : [...Object.entries(pallet), ['count', 1]];
 
   return (
     <tr>
@@ -12,7 +14,11 @@ const TableRow = ({ pallet, errorMessage }) => {
             <input
               type="text"
               value={value || ''}
-              onChange={e => pallet.map(item => item.editField(key, e.target.value))}
+              onChange={e =>
+                isJoined
+                  ? pallet.map(item => item.editField(key, e.target.value))
+                  : pallet.editField(key, e.target.value)
+              }
               className="field-input"
             />
           ) : (

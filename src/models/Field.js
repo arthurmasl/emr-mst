@@ -8,8 +8,6 @@ const Field = types
   })
   .actions(self => ({
     editField: (key, value) => {
-      console.log(self);
-
       if (key === 'weight') {
         if (!isNaN(value)) self[key] = parseInt(value);
       } else {
