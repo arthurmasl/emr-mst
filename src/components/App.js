@@ -3,7 +3,7 @@ import Table from './Table';
 
 const App = ({ store }) => (
   <div>
-    <Table pallets={store.pallets} />
+    <Table data={store.data} />
   </div>
 );
 export default App;

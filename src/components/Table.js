@@ -1,29 +1,43 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-const Table = ({ pallets }) =>
-  pallets.items.length ? (
-    <table className="table">
-      <thead className="thead-dark">
-        <tr>
-          {pallets.sectionsView.map((section, i) => (
-            <th key={i}>{section}</th>
-          ))}
-        </tr>
-      </thead>
+import TableRow from './TableRow';
 
-      <tbody>
-        {pallets.itemsView.map((pallet, id) => (
-          <tr key={id}>
-            <td>{pallet.title}</td>
-            <td>{pallet.dim}</td>
-            <td>{pallet.weight}</td>
-            <td>0</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ) : (
-    <p>loading..</p>
-  );
+const Table = ({ data }) => (
+  <div className="container">
+    {data.pallets.length ? (
+      <>
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              {data.sectionsView.map((section, idx) => (
+                <th key={idx}>{section}</th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {data.pallets.map((pallet, idx) => (
+              <TableRow
+                pallet={pallet}
+                key={idx}
+                errorMessage={key => data.errorMessage(idx, key)}
+              />
+            ))}
+          </tbody>
+        </table>
+
+        <button
+          className="btn btn-primary"
+          disabled={data.emptyCount > 0}
+          onClick={data.sendToApi}
+        >
+          SEND TO API
+        </button>
+      </>
+    ) : (
+      <p>loading..</p>
+    )}
+  </div>
+);
 export default observer(Table);

@@ -7,13 +7,12 @@ import Pallets from './Pallets';
 
 const Store = types
   .model({
-    pallets: types.optional(Pallets, {}),
-    // errors: types.array(ErrorItem),
+    data: types.optional(Pallets, {}),
   })
   .actions(self => ({
     load: () => {
-      self.pallets.items = pallets;
-      // self.errors = errors;
+      self.data.pallets = pallets;
+      self.data.errors = errors;
     },
 
     afterCreate: () => {

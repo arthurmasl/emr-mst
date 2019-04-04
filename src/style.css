@@ -1,0 +1,21 @@
+.field-input {
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  width: 100%;
+
+}
+
+.field-input:hover {
+  border: 1px solid #333;
+}
+
+.field {
+  position: relative
+}
+
+.field-badge {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
