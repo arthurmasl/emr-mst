@@ -1,18 +1,18 @@
 export const groupItems = items => {
-  const grouped = [[[]]];
+  const filtered = items.reduce((acc, curr) => {
+    acc.push(items.filter(item => JSON.stringify(item) === JSON.stringify(curr)));
+    return acc;
+  }, []);
 
-  items.forEach(item => {
-    const itemValues = Object.values(item);
-    const groupedValues = Object.values(grouped[grouped.length - 1][0]);
-
-    if (String(itemValues) === String(groupedValues)) {
-      grouped[grouped.length - 1].push(item);
-    } else {
-      grouped.push([item]);
-    }
-  });
-
-  grouped.shift();
+  const grouped = filtered.reduce(
+    (acc, curr) => {
+      if (!JSON.stringify(acc).includes(JSON.stringify(curr))) {
+        acc.push(curr);
+      }
+      return acc;
+    },
+    [filtered[0]]
+  );
 
   return grouped;
 };
